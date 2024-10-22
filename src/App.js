@@ -4,6 +4,7 @@ import Profile from "./components/User/Profile";
 import Content from "./components/Hero/Content";
 import LoginPage from "./components/Auth/LoginPage";
 import RegisterPage from "./components/Auth/RegisterPage";
+import ImageUpload from "./components/ImageUpload";
 function App() {
   return (
     <div className="flex flex-col h-screen">
@@ -13,6 +14,7 @@ function App() {
           <Route path="" element={<Content />} />
         </Route>
         <Route path="login" element={<LoginPage />} />
+        <Route path="image" element={<ImageUpload />} />
         <Route path="register" element={<RegisterPage />} />
       </Routes>
     </div>

@@ -55,7 +55,7 @@ function LoginPage() {
                 <babel className="block text-gray-700 text-sm font-bold mb-2">
                   Email Address
                 </babel>
-                <Field type="email" placeholder="username" name="username"
+                <Field type="text" placeholder="username" name="username"
                   className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
                   required
                 /> <br />

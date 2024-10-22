@@ -5,7 +5,7 @@ import OpenUser from './UserMenu';
 
 function Header(props) {
   return (
-    <div className="w-full h-16 fixed top-0">
+    <div className="w-full h-16 fixed top-0 shadow-2xl">
       <div>
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
