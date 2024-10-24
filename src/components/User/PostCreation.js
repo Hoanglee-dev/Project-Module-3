@@ -12,7 +12,7 @@ function PostCreation() {
         },
       });
       const listPost = response.data
-      console.log(listPost)
+      // console.log(listPost)
       setPostUser(listPost); // Lưu dữ liệu vào state.
     } catch (error) {
       console.error("Error fetching posts:", error);

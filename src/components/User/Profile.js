@@ -1,6 +1,7 @@
 import React from 'react';
 import InforUser from './InforUser';
 import PostCreation from './PostCreation';
+import UserProvider from './UserContext';
 
 const Profile = () => {
   return (

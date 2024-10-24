@@ -6,12 +6,32 @@ export default function OpenUser() {
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md">
-          <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-            <span class="sr-only">Open user menu</span>
-            <img class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="" />
+          <button type="button" className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+            <span className="sr-only">Open user menu</span>
+            <img className="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="" />
           </button>
         </MenuButton>
       </div>
+      {/* <div>
+        <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md">
+          <button
+            type="button"
+            className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+            id="user-menu-button"
+            aria-expanded="false"
+            data-dropdown-toggle="user-dropdown"
+            data-dropdown-placement="bottom"
+          >
+            <span className="sr-only">Open user menu</span>
+            <img
+              className="w-8 h-8 rounded-full"
+              src="/docs/images/people/profile-picture-3.jpg"
+              alt="User Profile"
+            />
+          </button>
+        </MenuButton>
+      </div> */}
+
 
       <MenuItems
         transition

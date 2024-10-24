@@ -1,6 +1,5 @@
 import React from 'react';
 import Posts from '../Posts';
-import EditorComponent from '../SummerNote';
 
 
 function Content(props) {
@@ -9,7 +8,7 @@ function Content(props) {
 
       <div
         className="w-full md:w-3/6 mx-auto shadow-2xl p-4 rounded-xl h-fit self-center dark:bg-gray-800/40 bg-customGray mt-8">
-        <EditorComponent />
+        {/* <EditorComponent /> */}
         <Posts />
       </div>
     </div>
