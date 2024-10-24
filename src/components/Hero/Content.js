@@ -1,11 +1,16 @@
 import React from 'react';
+import Posts from '../Posts';
+import EditorComponent from '../SummerNote';
+
+
 function Content(props) {
   return (
     <div className='flex flex-grow pt-16 justify-center'>
 
-      <div className="w-full md:w-3/5 bg-gray-500 p-4 overflow-y-auto">
-        <h1><h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ea deleniti est provident non quae, veritatis doloribus illum eveniet quo aspernatur tempore perspiciatis asperiores a odit distinctio sapiente earum modi incidunt.</h1>
-        </h1>
+      <div
+        className="w-full md:w-3/6 mx-auto shadow-2xl p-4 rounded-xl h-fit self-center dark:bg-gray-800/40 bg-customGray mt-8">
+        <EditorComponent />
+        <Posts />
       </div>
     </div>
 

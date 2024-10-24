@@ -1,15 +1,9 @@
 import React from 'react';
 
-function AvatarUser(props) {
-  const avatarUser = props.userInfor
-  console.log(avatarUser)
-  return (
-    <div>
-      {/* <div class="relative inline-block mr-7">
-        <img src={avatarUser.image} alt="" />
+function AvatarUser({ userInfor }) {
 
-      </div> */}
-    </div>
+  return (
+    <img className="rounded-full w-11/12 h-11/12 object-cover" src={userInfor.image} alt="" />
   );
 }
 
