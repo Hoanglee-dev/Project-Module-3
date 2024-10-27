@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import AvatarUser from '../Common/AvatarUser';
 import { Link } from 'react-router-dom';
 import { UserContext } from './UserContext';
@@ -6,7 +6,6 @@ import { UserContext } from './UserContext';
 const InforUser = () => {
 
   const { userInfor, userLoading } = useContext(UserContext)
-  console.log("userInfor", userInfor)
 
   return (
     <>
@@ -25,14 +24,14 @@ const InforUser = () => {
                 <p className="text-gray-500">{userInfor.dob}</p>
               </div>
             </div>
-            <div className='ml-4'>
+            {/* <div className='ml-4'>
               <Link
                 to="/edit-profile"
                 className="bg-gray-300 ml-1 hover:bg-gray-400 rounded-xl ring-2 font-serif"
               >
                 Edit Profile
               </Link>
-            </div>
+            </div> */}
           </>
         )
       }

@@ -18,6 +18,9 @@ module.exports = {
         customGray: '#242526',
         customBgCT: "#18191A" // Đặt tên cho màu tùy ý
       },
+      height: {
+        '91-67': '91.666667%', // Tạo một khóa với tên '91-67'
+      },
     },
   },
   plugins: [

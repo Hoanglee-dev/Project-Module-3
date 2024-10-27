@@ -1,19 +1,8 @@
-// import React from 'react';
-
-// function RegisterPage(props) {
-//   return (
-//     <div>
-//       <h1>RegisterPage</h1>
-//     </div>
-//   );
-// }
-
-// export default RegisterPage;
-
 
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
+// import axios from "axios";
 import baseAxios, { METHOD_HTTP } from "../config/baseAxios";
 
 function RegisterPage() {
@@ -21,6 +10,8 @@ function RegisterPage() {
   const navigate = useNavigate()
 
   const submit = async (values) => {
+    console.log("🚀 ~ submit ~ values:", values)
+
     try {
       let data = await baseAxios(METHOD_HTTP.POST, "/register", values)
       alert(data.message)
@@ -68,7 +59,11 @@ function RegisterPage() {
               password: ""
             }
           }
-          onSubmit={submit}
+          onSubmit={(values) => {
+            // console.log(values)
+            submit(values)
+          }
+          }
         >
 
           <Form className="mx-auto max-w-xs sm:max-w-md md:max-w-lg flex flex-col gap-4">

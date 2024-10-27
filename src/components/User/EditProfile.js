@@ -1,38 +1,36 @@
 import axios from 'axios';
 import { Field, Form, Formik } from 'formik';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from './UserContext';
+import { useNavigate } from 'react-router-dom';
 
 function EditProfile() {
   const { userInfor } = useContext(UserContext)
+  const navigate = useNavigate()
 
-  const [oldProfile, setOldProfile] = useState()
-
-  // console.log("🚀 ~ EditProfile ~ userInfor:", userInfor)
+  console.log("🚀 ~ EditProfile ~ userInfor:", userInfor)
 
   const updateProfileUser = async (values) => {
+    console.log("🚀 ~ updateProfileUser ~ values:", values)
     try {
-      await axios.put("http://localhost:3000/users/update-profile", {
+      const response = await axios.put("http://localhost:3000/users/update-profile", values, {
         headers: {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem("token")}`
         }
       })
+      console.log("🚀 ~ updateProfileUser ~ response:", response.data)
+      navigate("/user", { replace: true })
     }
     catch (e) {
       alert(e.message);
     }
   }
 
-  useEffect(() => {
-    if (userInfor) {
-      setOldProfile(userInfor)
-    }
-  }, [userInfor])
-
   return (
     <div className="lg:w-[80%] md:w-[90%] xs:w-[96%] mx-auto flex gap-4 mt-28">
       <div
-        className="lg:w-[88%] md:w-[80%] sm:w-[88%] xs:w-full mx-auto shadow-2xl p-4 rounded-xl h-fit self-center dark:bg-gray-800/40">
+        className="lg:w-3/5 md:w-[80%] sm:w-[88%] xs:w-full mx-auto shadow-2xl p-4 rounded-xl h-fit self-center dark:bg-gray-800/40">
         <div>
           <h1
             className="lg:text-3xl md:text-2xl sm:text-xl xs:text-xl font-serif font-extrabold mb-2 dark:text-white">
@@ -40,15 +38,16 @@ function EditProfile() {
           </h1>
           <h2 className="text-grey text-sm mb-4 dark:text-gray-400">Create Profile</h2>
           <div
-            className="w-full rounded-sm bg-[url('https://images.unsplash.com/photo-1449844908441-8829872d2607?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw2fHxob21lfGVufDB8MHx8fDE3MTA0MDE1NDZ8MA&ixlib=rb-4.0.3&q=80&w=1080')] bg-cover bg-center bg-no-repeat items-center">
+            className=" place-content-around  w-full h-48  rounded-sm bg-[url('https://images.unsplash.com/photo-1449844908441-8829872d2607?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw2fHxob21lfGVufDB8MHx8fDE3MTA0MDE1NDZ8MA&ixlib=rb-4.0.3&q=80&w=1080')] bg-cover bg-center bg-no-repeat items-center">
             {/* <!-- Profile Image --> */}
-            <div
-              className="mx-auto flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full bg-[url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw4fHxwcm9maWxlfGVufDB8MHx8fDE3MTEwMDM0MjN8MA&ixlib=rb-4.0.3&q=80&w=1080')] bg-cover bg-center bg-no-repeat">
+            <div className=''>
+              <div
+                className="mx-auto my-auto  size-28 bg-green-400 flex items-center justify-center rounded-full bg-cover bg-center bg-no-repeat">
+                <img className="rounded-full w-11/12 h-91-67 object-cover" src={userInfor.image} alt="" />
+              </div>
             </div>
             <div className="flex justify-end">
-
               <input type="file" id="upload_cover" hidden />
-
               <div
                 className="bg-white flex items-center gap-1 rounded-tl-md px-2 text-center font-semibold">
                 <label htmlFor="upload_cover" className="inline-flex items-center gap-1 cursor-pointer">
@@ -68,29 +67,29 @@ function EditProfile() {
           </div>
           <h2 className="text-center mt-1 font-semibold dark:text-gray-300">Upload Profile and Cover Image</h2>
           <Formik
-            initialValues={oldProfile || { username: '', dob: '' }}
+            initialValues={userInfor || { image: '', dob: '' }}
             enableReinitialize
             onSubmit={(values) => {
               // console.log("🚀 ~ EditProfile ~ values:", values)
-              // updateProfileUser(values);
+              updateProfileUser(values);
             }}
           >
-            <Form className="w-full mb-4 mt-6">
-              <div>
-                <label className="mb-2 dark:text-gray-300">Name</label>
+            <Form className="w-full mb-4 mt-6 flex flex-col justify-center items-center ">
+              <div className=' flex flex-col '>
+                <label className="mb-1 dark:text-gray-300">Image</label>
                 <Field
                   type="text"
-                  name="username"
-                  className="mt-2 p-4 w-1/4 border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                  name="image"
+                  className="p-4 w-60 border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                   placeholder="First Name"
                 />
               </div>
-              <div className="mt-4">
-                <label className="mb-2 dark:text-gray-300">Date Of Birth</label>
+              <div className="mt-4 flex flex-col">
+                <label className="mb-1 dark:text-gray-300">Date Of Birth</label>
                 <Field
                   type="text"
                   name="dob"
-                  className="mt-2 p-4 w-1/4 border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                  className="p-4 w-60 border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                 />
               </div>
               <div className="w-1/4 rounded-lg bg-blue-500 mt-4 text-white text-lg font-semibold">

@@ -16,7 +16,6 @@ const UserProvider = ({ children }) => {
       });
       setUserLoading(false)
       const dataUser = response.data;
-      console.log("dataUser", dataUser);
       setUserInfor(dataUser);
     } catch (error) {
       console.error(error);

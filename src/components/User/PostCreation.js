@@ -3,7 +3,6 @@ import axios from 'axios';
 import Post from '../Common/UserPost';
 function PostCreation() {
   const [postUser, setPostUser] = useState(null); // Sử dụng null thay vì [] để xác định trạng thái loading.
-
   const blogPost = async () => {
     try {
       const response = await axios.get("http://localhost:3000/posts", {
@@ -12,8 +11,10 @@ function PostCreation() {
         },
       });
       const listPost = response.data
-      // console.log(listPost)
-      setPostUser(listPost); // Lưu dữ liệu vào state.
+      const userName = listPost.map(item => item.username)
+      const filteredPost = listPost.filter(post => post.username === userName)
+      console.log("🚀 ~ blogPost ~ filteredPost:", filteredPost)
+      setPostUser(filteredPost); // Lưu dữ liệu vào state.
     } catch (error) {
       console.error("Error fetching posts:", error);
     }

@@ -7,6 +7,7 @@ import RegisterPage from "./components/Auth/RegisterPage";
 import ImageUpload from "./components/ImageUpload";
 import EditProfile from "./components/User/EditProfile";
 import UserProvider, { UserContext } from "./components/User/UserContext";
+
 function App() {
   return (
     <Routes>

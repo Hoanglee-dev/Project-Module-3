@@ -5,7 +5,7 @@ function Post({ post }) {
   return (
     <div className=" bg-gray-100 flex justify-center items-center p-4 rounded-2xl my-4">
       <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full">
-        <h1 className="text-2xl color- font-bold mb-4">{post.title}</h1>
+        <h1 className="text-2xl text-blue-600 font-bold mb-4">{post.username}</h1>
         <div className="flex justify-between items-center">
           <span className={`text-sm font-semibold px-2 py-1 rounded ${post.status === 'public' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'}`}>
             {post.status === 'public' ? 'Public' : 'Private'}
