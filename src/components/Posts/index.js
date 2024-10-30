@@ -13,12 +13,28 @@ function Posts() {
         },
       });
       const listPost = response.data
-      console.log(listPost)
+      // console.log("🚀 ~ blogPost ~ listPost:", listPost)
       setPostUser(listPost); // Lưu dữ liệu vào state.
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
   };
+
+  const removeProduct = async (id) => {
+    try {
+      const postusser = await axios.delete(`http://localhost:3000/posts/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      console.log("🚀 ~ removeProduct ~ postusser:", postusser)
+      await blogPost()
+      alert("xoa thanh cong")
+    }
+    catch (e) {
+      alert(e.message)
+    }
+  }
 
   useEffect(() => {
     blogPost();
@@ -33,7 +49,7 @@ function Posts() {
         <p>Loading...</p> // Hiển thị thông báo loading.
       )} */}
       {postUser ? postUser.map((post) =>
-        <Post post={post} key={post.id} />)
+        <Post post={post} key={post.id} removeProduct={removeProduct} />)
         :
         "loading"
       }
