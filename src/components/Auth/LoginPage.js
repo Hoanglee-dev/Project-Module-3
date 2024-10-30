@@ -11,25 +11,40 @@
 // export default LoginPage;
 
 import { Formik, Form, Field } from "formik";
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import baseAxios, { METHOD_HTTP } from "../config/baseAxios";
+import { UserContext } from "../User/UserContext";
+import axios from "axios";
 
 function LoginPage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const { setUserInfor } = useContext(UserContext);
+
+  const getInfo = async () => {
+    const res = await axios.get("http://localhost:3000/users/get-profile", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    console.log("🚀 ~ getInfo ~ res:", res.data);
+
+    setUserInfor(res.data);
+  };
 
   const handleLogin = async (values) => {
     try {
-      let data = await baseAxios(METHOD_HTTP.POST, "/login", values)
-      localStorage.setItem("token", data.token)
-
+      let data = await baseAxios(METHOD_HTTP.POST, "/login", values);
+      localStorage.setItem("token", data.token);
+      await getInfo();
       // alert(data.message)
-      navigate("/")
+      navigate("/home");
+    } catch (error) {
+      alert(error.message);
     }
-    catch (error) {
-      alert(error.message)
-    }
-  }
+  };
+
   return (
     <div className="flex items-center justify-center h-screen w-full px-5 sm:px-0">
       <div className="flex bg-white rounded-lg shadow-lg border overflow-hidden max-w-sm lg:max-w-4xl w-full">
@@ -42,12 +57,10 @@ function LoginPage() {
         <div className="w-full p-8 lg:w-1/2">
           <p className="text-xl text-gray-600 text-center">Welcome back!</p>
           <Formik
-            initialValues={
-              {
-                username: "",
-                password: ""
-              }
-            }
+            initialValues={{
+              username: "",
+              password: "",
+            }}
             onSubmit={handleLogin}
           >
             <Form>
@@ -55,10 +68,14 @@ function LoginPage() {
                 <babel className="block text-gray-700 text-sm font-bold mb-2">
                   Email Address
                 </babel>
-                <Field type="text" placeholder="username" name="username"
+                <Field
+                  type="text"
+                  placeholder="username"
+                  name="username"
                   className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
                   required
-                /> <br />
+                />{" "}
+                <br />
               </div>
               <div className="mt-4 flex flex-col justify-between">
                 <div className="flex justify-between">
@@ -66,7 +83,10 @@ function LoginPage() {
                     Password
                   </label>
                 </div>
-                <Field type="password" placeholder="password" name="password"
+                <Field
+                  type="password"
+                  placeholder="password"
+                  name="password"
                   className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
                 />
                 <Link
@@ -109,8 +129,12 @@ function LoginPage() {
                 </div>
               </Link>
               <div className="mt-8">
-                <button type="submit" className="bg-blue-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-blue-600"
-                >Login now</button>
+                <button
+                  type="submit"
+                  className="bg-blue-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-blue-600"
+                >
+                  Login now
+                </button>
               </div>
               <div className="mt-4 flex items-center w-full text-center">
                 <Link
@@ -126,8 +150,7 @@ function LoginPage() {
         </div>
       </div>
     </div>
-
-  )
+  );
 }
 
-export default LoginPage
+export default LoginPage;

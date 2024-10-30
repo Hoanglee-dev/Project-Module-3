@@ -4,10 +4,13 @@ import { UserContext } from "./UserContext";
 
 const InforUser = () => {
   const { userInfor, userLoading } = useContext(UserContext);
+  console.log("🚀 ~ InforUser ~ userLoading:", userLoading);
+  console.log("🚀 ~ InforUser ~ userInfor:", userInfor);
+
   useEffect(() => {
     // This will run whenever `userInfor` changes
     // console.log("userInfor has updated", userInfor);
-  }, [userInfor]);
+  }, []);
   return (
     <>
       {userInfor && !userLoading && (

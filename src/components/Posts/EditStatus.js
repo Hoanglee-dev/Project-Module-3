@@ -38,7 +38,7 @@ export default function EditStatus() {
           }
         );
         console.log("Dữ liệu đã được gửi thành công:", response.data);
-        navigate("/");
+        navigate("home");
       } catch (error) {
         console.error("Lỗi khi gửi dữ liệu:", error);
       }

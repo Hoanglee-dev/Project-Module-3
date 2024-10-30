@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
@@ -7,21 +6,19 @@ import baseAxios, { METHOD_HTTP } from "../config/baseAxios";
 
 function RegisterPage() {
   const [darkMode, setDarkMode] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const submit = async (values) => {
-    console.log("🚀 ~ submit ~ values:", values)
+    console.log("🚀 ~ submit ~ values:", values);
 
     try {
-      let data = await baseAxios(METHOD_HTTP.POST, "/register", values)
-      alert(data.message)
-      navigate("/login")
+      await baseAxios(METHOD_HTTP.POST, "/register", values);
+      alert("bạn đã đăng kí thành công");
+      navigate("/login");
+    } catch (error) {
+      alert(error.message);
     }
-    catch (error) {
-      alert(error.message)
-    }
-
-  }
+  };
   return (
     <div className="flex flex-col justify-center items-center w-full h-[100vh] bg-[#282D2D] px-5">
       <div className=" flex flex-col items-end justify-start  overflow-hidden mb-2 xl:max-w-3xl w-full">
@@ -43,69 +40,75 @@ function RegisterPage() {
           </label>
         </div>
       </div>
-      <div className={`xl:max-w-3xl ${darkMode ? "bg-black" : "bg-white"
+      <div
+        className={`xl:max-w-3xl ${
+          darkMode ? "bg-black" : "bg-white"
         }  w-full p-5 sm:p-10 rounded-md`}
       >
         <h1
-          className={`text-center text-xl sm:text-3xl font-semibold ${darkMode ? "text-white" : "text-black"
-            }`}
+          className={`text-center text-xl sm:text-3xl font-semibold ${
+            darkMode ? "text-white" : "text-black"
+          }`}
         >
           Register for a free account
         </h1>
         <Formik
-          initialValues={
-            {
-              username: "",
-              password: ""
-            }
-          }
+          initialValues={{
+            username: "",
+            password: "",
+          }}
           onSubmit={(values) => {
             // console.log(values)
-            submit(values)
-          }
-          }
+            submit(values);
+          }}
         >
-
           <Form className="mx-auto max-w-xs sm:max-w-md md:max-w-lg flex flex-col gap-4">
             <div className="w-full mt-8">
               <div className="mx-auto max-w-xs sm:max-w-md md:max-w-lg flex flex-col gap-4">
                 <div className="flex flex-col sm:flex-row gap-3">
                   <input
-                    className={`w-full px-5 py-3 rounded-lg font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none  focus:border-2  focus:outline ${darkMode
-                      ? "bg-[#302E30] text-white focus:border-white"
-                      : "bg-gray-100 text-black focus:border-black"
-                      }`}
+                    className={`w-full px-5 py-3 rounded-lg font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none  focus:border-2  focus:outline ${
+                      darkMode
+                        ? "bg-[#302E30] text-white focus:border-white"
+                        : "bg-gray-100 text-black focus:border-black"
+                    }`}
                     type="text"
                     placeholder="Your first name"
                   />
                   <input
-                    className={`w-full px-5 py-3 rounded-lg  font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2  focus:outline ${darkMode
-                      ? "bg-[#302E30] text-white focus:border-white"
-                      : "bg-gray-100 text-black focus:border-black"
-                      }`}
+                    className={`w-full px-5 py-3 rounded-lg  font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2  focus:outline ${
+                      darkMode
+                        ? "bg-[#302E30] text-white focus:border-white"
+                        : "bg-gray-100 text-black focus:border-black"
+                    }`}
                     type="text"
                     placeholder="Your last name"
                   />
                 </div>
                 <Field
                   name="username"
-                  className={`w-full px-5 py-3 rounded-lg  font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2  focus:outline ${darkMode
-                    ? "bg-[#302E30] text-white focus:border-white"
-                    : "bg-gray-100 text-black focus:border-black"
-                    }`}
+                  className={`w-full px-5 py-3 rounded-lg  font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2  focus:outline ${
+                    darkMode
+                      ? "bg-[#302E30] text-white focus:border-white"
+                      : "bg-gray-100 text-black focus:border-black"
+                  }`}
                   type="text"
                   placeholder="Enter your user name"
                 />
 
                 <Field
-                  className={`w-full px-5 py-3 rounded-lg  font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2  focus:outline ${darkMode
-                    ? "bg-[#302E30] text-white focus:border-white"
-                    : "bg-gray-100 text-black focus:border-black"
-                    }`}
+                  className={`w-full px-5 py-3 rounded-lg  font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2  focus:outline ${
+                    darkMode
+                      ? "bg-[#302E30] text-white focus:border-white"
+                      : "bg-gray-100 text-black focus:border-black"
+                  }`}
                   type="tel"
                   placeholder="Enter your password"
-                  name="password" />
-                <button type="submit" className="mt-5 tracking-wide font-semibold bg-[#E9522C] text-gray-100 w-full py-4 rounded-lg hover:bg-[#E9522C]/90 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                  name="password"
+                />
+                <button
+                  type="submit"
+                  className="mt-5 tracking-wide font-semibold bg-[#E9522C] text-gray-100 w-full py-4 rounded-lg hover:bg-[#E9522C]/90 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                 >
                   <svg
                     className="w-6 h-6 -ml-2"
@@ -133,9 +136,8 @@ function RegisterPage() {
           </Form>
         </Formik>
       </div>
-
     </div>
-  )
+  );
 }
 
-export default RegisterPage
+export default RegisterPage;

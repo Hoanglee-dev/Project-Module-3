@@ -1,9 +1,13 @@
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { UserContext } from "./UserContext";
 function EditProfile() {
   const [oldInfor, setOldInfor] = useState({});
+  const { setUserInfor } = useContext(UserContext);
+
+  const navigate = useNavigate();
   const getData = async () => {
     try {
       const data = await axios.get("http://localhost:3000/users/get-profile", {
@@ -12,6 +16,7 @@ function EditProfile() {
         },
       });
       setOldInfor(data.data);
+      setUserInfor(data.data);
       console.log("🚀 ~ getData ~ data:", data.data);
     } catch (e) {
       alert(e.message);
@@ -19,21 +24,15 @@ function EditProfile() {
   };
 
   const updateProfileUser = async (values) => {
-    // console.log("🚀 ~ updateProfileUser ~ values:", values);
     try {
-      const response = await axios.put(
-        "http://localhost:3000/users/update-profile",
-        values,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      // console.log("🚀 ~ updateProfileUser ~ response:", response.data);
-      // navigate("/user", { replace: true });
-      window.location.reload();
+      await axios.put("http://localhost:3000/users/update-profile", values, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      await getData();
+      navigate("/user");
     } catch (e) {
       alert(e.message);
     }
@@ -46,25 +45,13 @@ function EditProfile() {
     <div className="lg:w-[80%] md:w-[90%] xs:w-[96%] mx-auto flex gap-4 mt-28">
       <div className="lg:w-3/5 md:w-[80%] sm:w-[88%] xs:w-full mx-auto shadow-2xl p-4 rounded-xl h-fit self-center dark:bg-gray-800/40">
         <div>
-          <div>
-            <Link
-              to="/user"
-              className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-200 via-red-300 to-yellow-200 group-hover:from-red-200 group-hover:via-red-300 group-hover:to-yellow-200 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400"
-            >
-              <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                Back
-              </span>
-            </Link>
-          </div>
-          <div className="flex justify-center">
-            <div>
-              <h1 className="lg:text-3xl md:text-2xl sm:text-xl xs:text-xl font-serif font-extrabold mb-2 dark:text-white">
-                {oldInfor.username}
-              </h1>
-              <h2 className="text-grey text-sm mb-4 dark:text-gray-400">
-                Create Profile
-              </h2>
-            </div>
+          <div className="flex flex-col justify-center items-center">
+            <h1 className="lg:text-3xl md:text-2xl sm:text-xl xs:text-xl font-serif font-extrabold mb-2 dark:text-white">
+              {oldInfor.username}
+            </h1>
+            <h2 className="text-grey text-sm mb-4 dark:text-gray-400">
+              Create Profile
+            </h2>
           </div>
           <div className=" place-content-around  w-full h-48  rounded-sm bg-[url('https://images.unsplash.com/photo-1449844908441-8829872d2607?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw2fHxob21lfGVufDB8MHx8fDE3MTA0MDE1NDZ8MA&ixlib=rb-4.0.3&q=80&w=1080')] bg-cover bg-center bg-no-repeat items-center">
             {/* <!-- Profile Image --> */}

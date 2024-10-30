@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "../User/UserContext";
 
-function AvatarUser({ userInfor }) {
+function AvatarUser() {
+  const { userInfor } = useContext(UserContext);
+
   return (
     <>
       {userInfor.image ? (

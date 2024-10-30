@@ -20,9 +20,10 @@ const UserProvider = ({ children }) => {
       );
       setUserLoading(false);
       const dataUser = response.data;
-      console.log("🚀 ~ getInformation ~ dataUser:", dataUser);
+      // console.log("🚀 ~ getInformation ~ dataUser:", dataUser);
       setUserInfor(dataUser);
     } catch (error) {
+      setUserLoading(false);
       console.error(error);
     }
   };
@@ -32,7 +33,7 @@ const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ userLoading, userInfor }}>
+    <UserContext.Provider value={{ userLoading, userInfor, setUserInfor }}>
       {children}
     </UserContext.Provider>
   );

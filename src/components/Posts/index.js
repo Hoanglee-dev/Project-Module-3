@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Post from '../Common/UserPost';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Post from "../Common/UserPost";
 
 function Posts() {
   const [postUser, setPostUser] = useState(null); // Sử dụng null thay vì [] để xác định trạng thái loading.
@@ -9,10 +9,10 @@ function Posts() {
     try {
       const response = await axios.get("http://localhost:3000/posts", {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      const listPost = response.data
+      const listPost = response.data;
       // console.log("🚀 ~ blogPost ~ listPost:", listPost)
       setPostUser(listPost); // Lưu dữ liệu vào state.
     } catch (error) {
@@ -22,19 +22,21 @@ function Posts() {
 
   const removeProduct = async (id) => {
     try {
-      const postusser = await axios.delete(`http://localhost:3000/posts/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-      console.log("🚀 ~ removeProduct ~ postusser:", postusser)
-      await blogPost()
-      alert("xoa thanh cong")
+      const postusser = await axios.delete(
+        `http://localhost:3000/posts/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log("🚀 ~ removeProduct ~ postusser:", postusser);
+      await blogPost();
+      alert("xoa thanh cong");
+    } catch (e) {
+      alert(e.message);
     }
-    catch (e) {
-      alert(e.message)
-    }
-  }
+  };
 
   useEffect(() => {
     blogPost();
@@ -43,16 +45,11 @@ function Posts() {
   // Hiển thị loading khi postUser chưa có dữ liệu, và hiển thị bài viết khi có.
   return (
     <>
-      {/* {postUser ? (
-        <Post post={postUser} key={postUser.id} /> // Hiển thị một đối tượng duy nhất.
-      ) : (
-        <p>Loading...</p> // Hiển thị thông báo loading.
-      )} */}
-      {postUser ? postUser.map((post) =>
-        <Post post={post} key={post.id} removeProduct={removeProduct} />)
-        :
-        "loading"
-      }
+      {postUser
+        ? postUser.map((post) => (
+            <Post post={post} key={post.id} removeProduct={removeProduct} />
+          ))
+        : "loading"}
     </>
   );
 }
